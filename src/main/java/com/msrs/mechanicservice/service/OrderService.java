@@ -2,12 +2,12 @@ package com.msrs.mechanicservice.service;
 
 import com.msrs.mechanicservice.model.Customer;
 import com.msrs.mechanicservice.model.OrderDetails;
-import com.msrs.mechanicservice.repository.noDbTempRepo;
+import com.msrs.mechanicservice.repository.NonDbRepo;
 import org.springframework.stereotype.Service;
 
 @Service
 public class OrderService {
-    private noDbTempRepo repo;
+    private NonDbRepo repo;
 
     public void createOrder(Customer customer, OrderDetails orderDetails){
         repo.createOrder(customer,orderDetails);

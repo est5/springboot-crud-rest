@@ -1,8 +1,10 @@
 package com.msrs.mechanicservice.model;
 
+import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
 public class Customer {
     //@Id
     private long id;
@@ -22,6 +24,9 @@ public class Customer {
     @Override
     public int hashCode() {
         return Objects.hash(id, firstName, lastName, carList, phoneNumber);
+    }
+    public Customer(){
+        carList = new ArrayList<>();
     }
 
     public long getId() {

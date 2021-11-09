@@ -1,7 +1,8 @@
 package com.msrs.mechanicservice.model;
 
-import java.util.Date;
+import org.springframework.stereotype.Component;
 
+import java.util.Date;
 public class ClosedOrder {
     private Date closeDate;
     private OrderDetails details;

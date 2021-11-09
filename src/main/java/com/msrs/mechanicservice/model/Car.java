@@ -1,8 +1,9 @@
 package com.msrs.mechanicservice.model;
 
+import org.springframework.stereotype.Component;
+
 public class Car {
     private long id;
-    private Customer carOwner;
     private String manufacturer;
     private String model;
     private int year;
@@ -13,14 +14,6 @@ public class Car {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public Customer getCarOwner() {
-        return carOwner;
-    }
-
-    public void setCarOwner(Customer carOwner) {
-        this.carOwner = carOwner;
     }
 
     public String getManufacturer() {
