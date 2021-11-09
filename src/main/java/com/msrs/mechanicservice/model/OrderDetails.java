@@ -1,9 +1,9 @@
 package com.msrs.mechanicservice.model;
 
+
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
-
 public class OrderDetails {
 
     private long id;

@@ -1,6 +1,7 @@
 package com.msrs.mechanicservice.model;
 
 import java.util.List;
+import java.util.Objects;
 
 public class Customer {
     //@Id
@@ -10,6 +11,18 @@ public class Customer {
     private List<Car> carList;
     private String phoneNumber;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Customer customer = (Customer) o;
+        return id == customer.id && Objects.equals(firstName, customer.firstName) && Objects.equals(lastName, customer.lastName) && Objects.equals(carList, customer.carList) && Objects.equals(phoneNumber, customer.phoneNumber);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, firstName, lastName, carList, phoneNumber);
+    }
 
     public long getId() {
         return id;
