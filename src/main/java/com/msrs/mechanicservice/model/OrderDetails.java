@@ -1,9 +1,8 @@
 package com.msrs.mechanicservice.model;
 
 
-import org.springframework.stereotype.Component;
-
 import java.math.BigDecimal;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -16,6 +15,10 @@ public class OrderDetails {
     private List<String> serviceList;
     private Date startDate;
     private BigDecimal price;
+
+    public OrderDetails() {
+        this.startDate = Calendar.getInstance().getTime();
+    }
 
     public long getId() {
         return id;

@@ -1,7 +1,10 @@
 package com.msrs.mechanicservice.repository;
 
+import com.msrs.mechanicservice.exception.OrderAlreadyCreatedException;
+import com.msrs.mechanicservice.model.ClosedOrder;
+import com.msrs.mechanicservice.model.Customer;
+import com.msrs.mechanicservice.model.OrderDetails;
 import org.springframework.stereotype.Repository;
-import com.msrs.mechanicservice.model.*;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -24,20 +27,30 @@ public class NonDbRepo {
         return orderDetailsList;
     }
 
-    private void addCustomer(Customer customer){
+    public void addCustomer(Customer customer){
         if (customerList.contains(customer)){
-            logger.info("Customer already created");
+            return;
+//            logger.info("Customer already created");
         }else{
             customerList.add(customer);
         }
     }
 
-    public void createOrder(Customer customer,OrderDetails orderDetails){
-        addCustomer(customer);
-        orderDetailsList.add(orderDetails);
+    public List<Customer> getCustomerList() {
+        return customerList;
     }
 
-    public OrderDetails findOrderById(long id){
+    public void createOrder(Customer customer, OrderDetails orderDetails){
+        addCustomer(customer);
+        if (orderDetailsList.stream().filter(details -> details.getId() == orderDetails.getId()).findFirst().orElse(null) == null){
+            orderDetailsList.add(orderDetails);
+        }else{
+            throw new OrderAlreadyCreatedException();
+        }
+
+    }
+
+    public OrderDetails getOrderById(long id){
         return orderDetailsList.stream()
                 .filter(o -> o.getId() == id)
                 .findFirst()
@@ -45,11 +58,22 @@ public class NonDbRepo {
     }
 
     public void closeOrder(long orderId) {
-        OrderDetails details = findOrderById(orderId);
+        OrderDetails details = getOrderById(orderId);
         ClosedOrder closedOrder = new ClosedOrder();
         closedOrder.setDetails(details);
         closedOrder.setCloseDate(Calendar.getInstance().getTime());
         closedOrderList.add(closedOrder);
         orderDetailsList.remove(details);
+    }
+
+    public Customer findCustomerById(long id){
+        return customerList.stream()
+                .filter(c -> c.getId() == id)
+                .findFirst()
+                .orElse(null);
+    }
+
+    public List<ClosedOrder> getClosedOrderList() {
+        return closedOrderList;
     }
 }
