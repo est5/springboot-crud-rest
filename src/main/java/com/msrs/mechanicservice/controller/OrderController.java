@@ -24,26 +24,27 @@ public class OrderController {
         this.orderService = orderService;
         this.repo = repo;
     }
+
     //temp
     @GetMapping("/customers")
-    public List<Customer> test(){
+    public List<Customer> test() {
         return repo.getCustomerList();
     }
+
     //temp
     @GetMapping("/closed")
-    public List<ClosedOrder> testClosed(){
+    public List<ClosedOrder> testClosed() {
         return repo.getClosedOrderList();
     }
-
 
     @GetMapping("/orders")
     public List<OrderDetails> getAllOrders() {
         return repo.getAllOrders();
     }
 
-    @GetMapping("/ordersId")
+    @GetMapping("/order/{id}")
     public OrderDetails getOrderById(
-            @RequestParam long id
+            @PathVariable long id
     ) {
         return repo.getOrderById(id);
     }
@@ -51,7 +52,7 @@ public class OrderController {
     @PostMapping("/createCustomer")
     public void createCustomer(
             @RequestBody CustomerDto customerDto
-            ) {
+    ) {
         Customer c = new Customer();
         if (orderService.checkCustomer(c) == null) {
             c.setId(1);//autoincrement
@@ -101,19 +102,19 @@ public class OrderController {
         }
     }
 
-    @DeleteMapping("/closeOrder")
+    @DeleteMapping("/close/{id}")
     public void closeOrder(
-            @RequestParam long orderId
+            @PathVariable long orderId
     ) {
         repo.closeOrder(orderId);
     }
 
-    @PutMapping("/addNote")
+    @PutMapping("/addNote/{id}")
     public void addNote(
-            @RequestParam String note,
-            @RequestParam long orderId
+            @RequestBody String note,
+            @PathVariable long id
     ) {
-        orderService.addNoteToOrder(orderId, note);
+        orderService.addNoteToOrder(id, note);
     }
 
 }
