@@ -1,39 +1,57 @@
 package com.msrs.mechanicservice.model;
 
 
+import com.msrs.mechanicservice.dto.OrderDto;
+
+import javax.persistence.*;
+import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-public class OrderDetails {
-
-    private long id;
-    private Car car;
+@Entity
+@Table(schema = "mechanicService", name = "OrderDetails")
+public class OrderDetails implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @OneToOne
     private Customer customer;
     private String notes;
+    @ElementCollection
     private List<String> serviceList;
     private Date startDate;
     private BigDecimal price;
+    private boolean isClosed;
 
     public OrderDetails() {
         this.startDate = Calendar.getInstance().getTime();
+        serviceList = new ArrayList<>();
     }
 
-    public long getId() {
+    public static OrderDetails of(OrderDto orderDto, Customer customer) {
+        var orderDetails = new OrderDetails();
+        orderDetails.setPrice(new BigDecimal(14.88)); // calculate somehow
+        orderDetails.setNotes(orderDto.getNote());
+        orderDetails.setCustomer(customer);
+        orderDetails.serviceList.add(orderDto.getList());
+        orderDetails.setClosed(false);
+
+        return orderDetails;
+    }
+
+    public boolean isClosed() {
+        return isClosed;
+    }
+
+    public void setClosed(boolean closed) {
+        isClosed = closed;
+    }
+
+    public Long getId() {
         return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public Car getCar() {
-        return car;
-    }
-
-    public void setCar(Car car) {
-        this.car = car;
     }
 
     public Customer getCustomer() {

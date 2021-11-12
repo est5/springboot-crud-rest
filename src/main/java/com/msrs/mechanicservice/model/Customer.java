@@ -1,40 +1,61 @@
 package com.msrs.mechanicservice.model;
 
-import org.springframework.stereotype.Component;
+import com.msrs.mechanicservice.dto.CustomerDto;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-public class Customer {
-    //@Id
-    private long id;
+import javax.persistence.*;
+import java.io.Serializable;
+
+@Entity
+@Table(schema = "mechanicService", name = "Customer")
+public class Customer implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String firstName;
     private String lastName;
-    private List<Car> carList;
     private String phoneNumber;
+    private String carManufacturer;
+    private String carModel;
+    private int carYear;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Customer customer = (Customer) o;
-        return id == customer.id && Objects.equals(firstName, customer.firstName) && Objects.equals(lastName, customer.lastName) && Objects.equals(carList, customer.carList) && Objects.equals(phoneNumber, customer.phoneNumber);
+    public static Customer of(CustomerDto customerDto) {
+        Customer c = new Customer();
+        c.setFirstName(customerDto.getFirstName());
+        c.setLastName(customerDto.getLastName());
+        c.setPhoneNumber(customerDto.getPhoneNumber());
+        c.setCarManufacturer(customerDto.getCarManufacturer());
+        c.setCarModel(customerDto.getCarModel());
+        c.setCarYear(customerDto.getCarYear());
+
+        return c;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, firstName, lastName, carList, phoneNumber);
-    }
-    public Customer(){
-        carList = new ArrayList<>();
+    public String getCarManufacturer() {
+        return carManufacturer;
     }
 
-    public long getId() {
+    public void setCarManufacturer(String carManufacturer) {
+        this.carManufacturer = carManufacturer;
+    }
+
+    public String getCarModel() {
+        return carModel;
+    }
+
+    public void setCarModel(String carModel) {
+        this.carModel = carModel;
+    }
+
+    public int getCarYear() {
+        return carYear;
+    }
+
+    public void setCarYear(int carYear) {
+        this.carYear = carYear;
+    }
+
+    public Long getId() {
         return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public String getFirstName() {
@@ -51,14 +72,6 @@ public class Customer {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    public List<Car> getCarList() {
-        return carList;
-    }
-
-    public void setCarList(List<Car> carList) {
-        this.carList = carList;
     }
 
     public String getPhoneNumber() {
