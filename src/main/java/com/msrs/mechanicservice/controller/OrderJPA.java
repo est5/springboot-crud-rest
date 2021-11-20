@@ -4,8 +4,8 @@ import com.msrs.mechanicservice.dto.CustomerDto;
 import com.msrs.mechanicservice.dto.OrderDto;
 import com.msrs.mechanicservice.model.Customer;
 import com.msrs.mechanicservice.model.OrderDetails;
-import com.msrs.mechanicservice.repository.mariadb.CustomerRepo;
-import com.msrs.mechanicservice.repository.mariadb.OrderDetailsRepo;
+import com.msrs.mechanicservice.repository.postgresql.CustomerRepo;
+import com.msrs.mechanicservice.repository.postgresql.OrderDetailsRepo;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

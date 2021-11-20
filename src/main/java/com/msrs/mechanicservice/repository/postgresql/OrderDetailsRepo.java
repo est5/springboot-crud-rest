@@ -1,4 +1,4 @@
-package com.msrs.mechanicservice.repository.mariadb;
+package com.msrs.mechanicservice.repository.postgresql;
 
 import com.msrs.mechanicservice.model.OrderDetails;
 import org.springframework.data.jpa.repository.Query;

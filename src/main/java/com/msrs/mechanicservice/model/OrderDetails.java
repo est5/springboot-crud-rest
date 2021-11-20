@@ -12,7 +12,6 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(schema = "mechanicService", name = "OrderDetails")
 public class OrderDetails implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

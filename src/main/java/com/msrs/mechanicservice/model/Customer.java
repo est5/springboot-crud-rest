@@ -2,11 +2,13 @@ package com.msrs.mechanicservice.model;
 
 import com.msrs.mechanicservice.dto.CustomerDto;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.io.Serializable;
 
 @Entity
-@Table(schema = "mechanicService", name = "Customer")
 public class Customer implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
